@@ -1,0 +1,66 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title> PERSONAL APP</title>
+    <link rel="stylesheet" type="text/css" href='{% static "css/style.css" %}'>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript">
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+
+
+
+
+    $(document).ready(function(){
+        $(".spin").hide();
+    $(".butt").click(function(){
+        $(".spin").show();
+        var textin = $(".txt").val();
+    $.post("/personal/gosl",{csrfmiddlewaretoken: csrftoken, 'intext': textin},function(data){
+        $(".txt2").val(data);
+        $(".spin").hide();
+    })
+    });
+    });
+    </script>
+</head>
+<body>
+    <div>
+    <h3 class="h3"> TRANSLATOR </h3>
+    <h4 class="h4"> Enter anything to translate here!</h4>
+    </div>
+    <form id="trans_form" method="POST">
+    {% csrf_token %}
+        <textarea class="txt" type="text"  name='box1' id="txt1" rows="10"  cols="50" placeholder="Write here....."></textarea>
+        </br>
+        <input class="butt" type="button" value="Translate"> </input>
+        </br>
+    </form>
+        {% csrf_token %}
+        <textarea class="txt2" type="text" name="box2" id="txt2" rows="10"  cols="50">
+        {% block content %}
+        {{ trans }}
+        {% endblock %}
+        </textarea>
+        <div class="spin">
+        <div class="spinner"></div>
+        </div>
+
+</body>
+</html>
