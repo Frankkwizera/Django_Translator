@@ -32,9 +32,9 @@ var csrftoken = getCookie('csrftoken');
     $(".butt").click(function(){
         $(".spin").show();
         var textin = $(".txt").val();
-    $.post("/personal/gosl",{csrfmiddlewaretoken: csrftoken, 'intext': textin},function(data){
-        $(".txt2").val(data);
-        $(".spin").hide();
+        $.post("",{csrfmiddlewaretoken: csrftoken, 'intext': textin},function(data){
+          $(".txt2").val(data);
+          $(".spin").hide();
     })
     });
     });
@@ -52,15 +52,12 @@ var csrftoken = getCookie('csrftoken');
         <input class="butt" type="button" value="Translate"> </input>
         </br>
     </form>
-        {% csrf_token %}
-        <textarea class="txt2" type="text" name="box2" id="txt2" rows="10"  cols="50">
-        {% block content %}
-        {{ trans }}
-        {% endblock %}
-        </textarea>
-        <div class="spin">
-        <div class="spinner"></div>
-        </div>
+    <textarea class="txt2" type="text" name="box2" id="txt2" rows="10"  cols="50">
+    </textarea>
+
+    <div class="spin">
+    <div class="spinner"></div>
+    </div>
 
 </body>
 </html>
