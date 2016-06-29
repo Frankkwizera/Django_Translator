@@ -15,12 +15,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^polls/', include('polls.urls')),
+
     url(r'^admin/', admin.site.urls),
-    url(r'^webapp/', include('webapp.urls')),
-    url(r'^personal/', include('personal.urls')),
+    url(r'^', include('personal.urls')),
 
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
